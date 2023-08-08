@@ -1,17 +1,86 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title class="ion-text-center">L I S T A</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content
+  [fullscreen]="true"
+  class="ion-text-center"
+  [class.large-font]="isLargeFont"
+>
+  <ion-refresher
+    slot="fixed"
+    [pullFactor]="0.5"
+    [pullMin]="100"
+    [pullMax]="200"
+    (ionRefresh)="handleRefresh($event)"
+  >
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Suelta para actualizar"
+      refreshingSpinner="crescent"
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <h3>Deslice para <ion-text color="primary">actualizar</ion-text></h3>
+  <ion-list lines="full">
+    <ion-item *ngFor="let nota of notas">
+      <ion-label>{{ nota.titulo }}</ion-label>
+      <ion-button
+        fill="clear"
+        color="primary"
+        size="small"
+        (click)="abrirModal(nota)"
+        >VER</ion-button
+      >
+      <ion-button
+        fill="clear"
+        color="danger"
+        size="small"
+        (click)="borrarModal(nota)"
+        >BORRAR</ion-button
+      >
+    </ion-item>
+  </ion-list>
+  <!-- MODAL VER TEXTO NOTA -->
+  <ion-modal [isOpen]="isModalOpen" [class.large-font]="isLargeFont">
+    <ng-template>
+      <ion-content class="ion-padding ion-text-center">
+        <h2 class="titulomodal">Título:</h2>
+        <p>{{ selectedNota.titulo }}</p>
+        <h2 class="titulomodal">Contenido:</h2>
+        <p>{{ selectedNota.texto }}</p>
+        <br />
+        <ion-button
+          class="btnCerrar"
+          (click)="setOpen(false)"
+          fill="outline"
+          color="primary"
+          shape="round"
+          >CERRAR</ion-button
+        >
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <!-- MODAL CONFIRMACIÓN DE ELIMINACIÓN -->
+  <ion-modal [isOpen]="isDeleteModalOpen" [class.large-font]="isLargeFont">
+    <ng-template>
+      <ion-content class="ion-padding ion-text-center">
+        <ion-text>
+          <h2 class="titulomodal">¿Seguro que desea eliminar?</h2> </ion-text
+        ><br /><br />
+        <ion-button expand="block" color="danger" (click)="eliminarNota()"
+          >Sí</ion-button
+        >
+        <ion-button
+          expand="block"
+          (click)="setDeleteModalOpen(false)"
+          color="primary"
+          >No</ion-button
+        >
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

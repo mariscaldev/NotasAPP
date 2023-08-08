@@ -1,0 +1,21 @@
+ion-title {
+    font-size: 35px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  ion-content {
+    --padding-top: 10px;
+    --padding-end: 8%;
+    --padding-start: 8%;
+  
+    &.large-font {
+      --padding-top: 10px;
+      --padding-end: 0%;
+      --padding-start: 0%;
+  
+      .toggle{
+        font-size: larger;
+      }
+    }
+  }
+  

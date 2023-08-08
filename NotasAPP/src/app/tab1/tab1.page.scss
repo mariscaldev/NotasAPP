@@ -1,0 +1,46 @@
+ion-title{
+    font-size: 35px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+ion-content{
+  --padding-top: 10px;
+  --padding-end: 8%;
+  --padding-start: 8%;
+
+  &.large-font {
+    --padding-top: 0px;
+    --padding-end: 3%;
+    --padding-start: 3%;
+
+.custom{
+  font-size: larger;
+}
+    ion-button{
+      font-size: larger;
+    }
+  }
+}
+
+p{
+    color: var(--ion-color-primary);
+}
+
+ion-textarea.custom {
+    --background: var(--ion-color-black);
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --placeholder-color: var(--ion-color-tertiary);
+    --placeholder-opacity: 0.9;
+    --border-radius: 10px;
+    height: 400px;
+  }
+  
+ion-textarea.custom .helper-text,
+ion-textarea.custom .counter {
+color: #373737;
+}
+
+.botones{
+    margin: 50px 15% 0px;
+}

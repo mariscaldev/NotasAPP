@@ -1,17 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title class="ion-text-center">N O T A S</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content
+  [fullscreen]="true"
+  class="ion-text-center"
+  [class.large-font]="isLargeFont"
+>
+  <ion-item>
+    <ion-input
+      class="custom"
+      mode="ios"
+      [(ngModel)]="titulo"
+      label="Título:"
+      placeholder="Escribe el título (3 a 50 caracteres)"
+      helperText="Carácteres ingresados"
+      [counter]="true"
+      [minlength]="3"
+      [maxlength]="50"
+    ></ion-input> </ion-item
+  ><br />
+  <!-- AREA DE TEXTO -->
+  <ion-textarea
+    [(ngModel)]="texto"
+    aria-label="Custom textarea"
+    placeholder="Escribe tu nota aquí"
+    class="custom"
+    mode="ios"
+    helperText="Carácteres ingresados"
+    [counter]="true"
+    [minlength]="5"
+    [maxlength]="1000"
+  ></ion-textarea>
+  <div class="botones" mode="ios">
+    <ion-button
+      expand="block"
+      fill="outline"
+      shape="round"
+      (click)="guardarDatos()"
+      >Guardar</ion-button
+    ><br />
+    <ion-button
+      expand="block"
+      fill="outline"
+      shape="round"
+      (click)="limpiarTexto()"
+      >Limpiar</ion-button
+    >
+  </div>
 </ion-content>

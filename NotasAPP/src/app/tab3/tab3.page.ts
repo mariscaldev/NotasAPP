@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FontService } from '../servicios/font.service';
 
 @Component({
   selector: 'app-tab3',
@@ -6,7 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  constructor(private fontService: FontService) {}
 
-  constructor() {}
+  get isLargeFont(): boolean {
+    return this.fontService.getIsLargeFont();
+  }
 
+  async toggleFont() {
+    await this.fontService.toggleFont();
+  }
 }
