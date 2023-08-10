@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.mariscaldev.notas',
-  appName: 'Notas APP',
+  appId: 'com.mariscaldev.notasAPP',
+  appName: 'NotasAPP',
   webDir: 'www',
   server: {
     androidScheme: 'https'
