@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { FontService } from '../servicios/font.service';
+import { TextRightService } from '../servicios/text-right.service';
 
 @Component({
   selector: 'app-tab2',
@@ -13,11 +14,13 @@ export class Tab2Page {
   isModalOpen = false; // Modal de ionic para que este desactivado
   selectedNota: any = {}; // Variable para la nota seleccionada
   isDeleteModalOpen = false; // Agrega esta propiedad para el modal de confirmación
+  isEditMode = false; // Agrega esta línea para declarar la variable isEditMode
+  editedNota: any; // Declaración de la variable editedNota
 
   constructor(
     private storage: Storage,
-    private modalController: ModalController,
-    private fontService: FontService
+    private fontService: FontService,
+    private textRightService: TextRightService,
   ) {
     this.initStorage();
     this.cargarNotas();
@@ -68,6 +71,33 @@ export class Tab2Page {
       this.setDeleteModalOpen(false); // Cierra el modal de confirmación
     }
   }
+
+  editarNota() {
+    this.isEditMode = true; // Activa el modo de edición
+    this.editedNota = { ...this.selectedNota }; // Copia el contenido de la nota seleccionada
+  }
+  
+  
+  guardarCambios() {
+    // Realiza la lógica para guardar los cambios en la nota editada
+    const index = this.notas.indexOf(this.selectedNota);
+    if (index !== -1) {
+      this.notas[index] = { ...this.editedNota }; // Actualiza la nota en el arreglo
+  
+      this.storage.set('notas', this.notas).then(() => {
+        this.selectedNota = { ...this.editedNota }; // Actualiza la nota seleccionada
+        this.isEditMode = false; // Desactiva el modo de edición
+      });
+    }
+  }
+  
+  cancelarEdicion() {
+    // Revierte los cambios y desactiva el modo de edición
+    this.isEditMode = false;
+    this.editedNota = null;
+  }
+  
+  
   // AGRANDAR FUENTES
   get isLargeFont(): boolean {
     return this.fontService.getIsLargeFont();
@@ -75,5 +105,14 @@ export class Tab2Page {
 
   async toggleFont() {
     await this.fontService.toggleFont();
+  }
+
+  // CAMBIAR TEXTO A IZQUIERDA
+  get isTextRight(): boolean {
+    return this.textRightService.getIsTextRight();
+  }
+
+  async toggleText() {
+    await this.textRightService.toggleText();
   }
 }

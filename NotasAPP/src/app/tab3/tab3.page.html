@@ -7,6 +7,7 @@
 <ion-content
   [fullscreen]="true"
   [class.large-font]="isLargeFont"
+  [class.text-right]="isTextRight"
   class="ion-text-center"
   mode="ios"
 >
@@ -18,6 +19,15 @@
         class="toggle"
       >
         Fuente grande
+      </ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle
+        [checked]="isTextRight"
+        (ionChange)="toggleText()"
+        class="toggle"
+      >
+        Texto en la izquierda
       </ion-toggle>
     </ion-item>
   </ion-list>

@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'NotasAPP',
+  appId: 'com.mariscaldev.notas',
+  appName: 'Notas APP',
   webDir: 'www',
   server: {
     androidScheme: 'https'

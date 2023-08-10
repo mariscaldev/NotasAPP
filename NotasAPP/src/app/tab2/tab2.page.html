@@ -44,22 +44,76 @@
     </ion-item>
   </ion-list>
   <!-- MODAL VER TEXTO NOTA -->
-  <ion-modal [isOpen]="isModalOpen" [class.large-font]="isLargeFont">
+  <ion-modal
+    [isOpen]="isModalOpen"
+    [class.large-font]="isLargeFont"
+    [class.text-right]="isTextRight"
+  >
     <ng-template>
       <ion-content class="ion-padding ion-text-center">
         <h2 class="titulomodal">Título:</h2>
-        <p>{{ selectedNota.titulo }}</p>
-        <h2 class="titulomodal">Contenido:</h2>
-        <p>{{ selectedNota.texto }}</p>
-        <br />
-        <ion-button
-          class="btnCerrar"
-          (click)="setOpen(false)"
-          fill="outline"
-          color="primary"
-          shape="round"
-          >CERRAR</ion-button
+        <p *ngIf="!isEditMode">
+          {{ isEditMode ? editedNota.titulo : selectedNota.titulo }}
+        </p>
+        <textarea
+          class="custom"
+          *ngIf="isEditMode"
+          [(ngModel)]="editedNota.titulo"
+          rows="1"
+          cols="40"
         >
+{{ editedNota.texto }}</textarea
+        >
+        <h2 class="titulomodal">Contenido:</h2>
+        <textarea
+          *ngIf="isEditMode"
+          [(ngModel)]="editedNota.texto"
+          rows="6"
+          cols="40"
+        >
+{{ editedNota.texto }}</textarea
+        >
+
+        <p *ngIf="!isEditMode" [style.white-space]="'pre-wrap'">
+          {{ selectedNota.texto }}
+        </p>
+        <br />
+        <ng-container *ngIf="isEditMode">
+          <ion-button
+            class="btnCerrar"
+            (click)="guardarCambios()"
+            fill="outline"
+            color="primary"
+            shape="round"
+            >GUARDAR</ion-button
+          >
+          <ion-button
+            class="btnCerrar"
+            (click)="cancelarEdicion()"
+            fill="outline"
+            color="primary"
+            shape="round"
+            >CANCELAR</ion-button
+          >
+        </ng-container>
+        <ng-container *ngIf="!isEditMode">
+          <ion-button
+            class="btnCerrar"
+            (click)="editarNota()"
+            fill="outline"
+            color="primary"
+            shape="round"
+            >EDITAR</ion-button
+          >
+          <ion-button
+            class="btnCerrar"
+            (click)="setOpen(false)"
+            fill="outline"
+            color="primary"
+            shape="round"
+            >CERRAR</ion-button
+          >
+        </ng-container>
       </ion-content>
     </ng-template>
   </ion-modal>

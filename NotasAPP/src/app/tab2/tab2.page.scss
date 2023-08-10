@@ -35,6 +35,16 @@ ion-modal {
     }
   }
 
+  ion-modal {
+    &.text-right {
+      ion-content {
+        p {
+          text-align: start;
+        }
+      }
+    }
+  }
+
 ion-title{
     font-size: 35px;
     font-family: Georgia, 'Times New Roman', Times, serif;

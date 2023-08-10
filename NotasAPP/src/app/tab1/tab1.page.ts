@@ -24,12 +24,12 @@ export class Tab1Page {
     this.storage = await this.storage.create();
   }  
 
-async guardarDatos() {
-  if (this.titulo.length >= 3 && this.titulo.length <= 50 && this.texto.length >= 5 && this.texto.length <= 1000) {
-    const nuevaNota = {
-      titulo: this.titulo,
-      texto: this.texto
-    };
+  async guardarDatos() {
+    if (this.titulo.length >= 3 && this.titulo.length <= 50 && this.texto.length >= 5 && this.texto.length <= 1000) {
+      const nuevaNota = {
+        titulo: this.titulo,
+        texto: this.texto,
+      };
     let notas = await this.storage.get('notas') || [];
     notas.push(nuevaNota);
     await this.storage.set('notas', notas);
@@ -42,6 +42,7 @@ async guardarDatos() {
       position: 'bottom'
     });
     toast.present();
+    this.limpiarTexto();
   } else {
     console.log('Error: Los campos no cumplen con la longitud requerida.');
 
@@ -54,27 +55,25 @@ async guardarDatos() {
     });
     toast.present();
   }
+  const textoSinSaltos = this.texto.replace(/\r?\n/g, '\\n');
+
+  const nuevaNota = {
+    titulo: this.titulo,
+    texto: textoSinSaltos
+  };
 }
 
   async cargarDatos() {
     const nota = await this.storage.get('nota');
     if (nota) {
       this.titulo = nota.titulo;
-      this.texto = nota.texto;
+      this.texto = nota.texto.replace(/\\n/g, '\n');
     }
   }
 
   async limpiarTexto() {
     this.titulo = '';
     this.texto = '';
-
-    const toast = await this.toastController.create({
-      icon: 'brush',
-      message: 'Limpieza exitosa',
-      duration: 1000,
-      position: 'bottom',
-    });
-    toast.present();
   }
 
     // AGRANDAR FUENTES
